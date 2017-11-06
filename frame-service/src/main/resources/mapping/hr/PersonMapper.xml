@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hxy.hr.dao.PersonDao">
+
+
+    <resultMap type="com.hxy.hr.entity.PersonEntity" id="personMap">
+        <result property="id" column="id"/>
+        <result property="bapid" column="bapid"/>
+        <result property="hrNo" column="hr_no"/>
+        <result property="hrName" column="hr_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="status" column="status"/>
+        <result property="phone" column="phone"/>
+        <result property="photo" column="photo"/>
+        <result property="email" column="email"/>
+        <result property="degree" column="degree"/>
+        <result property="address" column="address"/>
+        <result property="supervisor" column="supervisor"/>
+        <result property="age" column="age"/>
+        <result property="nation" column="nation"/>
+        <result property="createId" column="create_id"/>
+        <result property="updateId" column="update_id"/>
+        <result property="baid" column="baid"/>
+        <result property="idCard" column="id_card"/>
+        <result property="school" column="school"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="contacts" column="contacts"/>
+        <result property="contactsPhone" column="contacts_phone"/>
+        <result property="empStatus" column="emp_status"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+		id, 
+		bapid, 
+		hr_no, 
+		hr_name, 
+		create_time, 
+		update_time, 
+		status, 
+		phone, 
+		photo, 
+		email, 
+		degree, 
+		address, 
+		supervisor, 
+		age, 
+		nation, 
+		create_id, 
+		update_id, 
+		baid, 
+		id_card, 
+		school, 
+		start_time, 
+		end_time, 
+		contacts, 
+		contacts_phone, 
+		emp_status
+    </sql>
+
+	<select id="queryObject" resultType="com.hxy.hr.entity.PersonEntity" resultMap="personMap">
+		select
+		<include refid="Base_Column_List" />
+		from hr_person
+		where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.hxy.hr.entity.PersonEntity" resultMap="personMap">
+		select
+		<include refid="Base_Column_List" />
+		from hr_person
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+    <select id="queryListByBean" resultType="com.hxy.hr.entity.PersonEntity" resultMap="personMap">
+        select
+        <include refid="Base_Column_List" />
+        from hr_person
+        WHERE 1=1
+    </select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from hr_person
+	</select>
+	 
+	<insert id="save" parameterType="com.hxy.hr.entity.PersonEntity">
+		insert into hr_person
+		(
+			`id`, 
+			`bapid`, 
+			`hr_no`, 
+			`hr_name`, 
+			`create_time`, 
+			`update_time`, 
+			`status`, 
+			`phone`, 
+			`photo`, 
+			`email`, 
+			`degree`, 
+			`address`, 
+			`supervisor`, 
+			`age`, 
+			`nation`, 
+			`create_id`, 
+			`update_id`, 
+			`baid`, 
+			`id_card`, 
+			`school`, 
+			`start_time`, 
+			`end_time`, 
+			`contacts`, 
+			`contacts_phone`, 
+			`emp_status`
+		)
+		values
+		(
+			#{id}, 
+			#{bapid}, 
+			#{hrNo}, 
+			#{hrName}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{status}, 
+			#{phone}, 
+			#{photo}, 
+			#{email}, 
+			#{degree}, 
+			#{address}, 
+			#{supervisor}, 
+			#{age}, 
+			#{nation}, 
+			#{createId}, 
+			#{updateId}, 
+			#{baid}, 
+			#{idCard}, 
+			#{school}, 
+			#{startTime}, 
+			#{endTime}, 
+			#{contacts}, 
+			#{contactsPhone}, 
+			#{empStatus}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.hxy.hr.entity.PersonEntity">
+		update hr_person 
+		<set>
+			<if test="bapid != null">`bapid` = #{bapid}, </if>
+			<if test="hrNo != null">`hr_no` = #{hrNo}, </if>
+			<if test="hrName != null">`hr_name` = #{hrName}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="phone != null">`phone` = #{phone}, </if>
+			<if test="photo != null">`photo` = #{photo}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="degree != null">`degree` = #{degree}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="supervisor != null">`supervisor` = #{supervisor}, </if>
+			<if test="age != null">`age` = #{age}, </if>
+			<if test="nation != null">`nation` = #{nation}, </if>
+			<if test="createId != null">`create_id` = #{createId}, </if>
+			<if test="updateId != null">`update_id` = #{updateId}, </if>
+			<if test="baid != null">`baid` = #{baid}, </if>
+			<if test="idCard != null">`id_card` = #{idCard}, </if>
+			<if test="school != null">`school` = #{school}, </if>
+			<if test="startTime != null">`start_time` = #{startTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime}, </if>
+			<if test="contacts != null">`contacts` = #{contacts}, </if>
+			<if test="contactsPhone != null">`contacts_phone` = #{contactsPhone}, </if>
+			<if test="empStatus != null">`emp_status` = #{empStatus}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from hr_person where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from hr_person where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
